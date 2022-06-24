@@ -39,7 +39,10 @@ export const SecondChallenge = () => {
   }
   useEffect(() => {
     if (users.length === 0) return
-    if (searchValue === '') return
+    if (searchValue === '') {
+      setFilteredUsers([])
+      return
+    }
     if (filter === 'nombre') {
       const filteredUsers = users.filter((user) =>
         user.firstName.toLowerCase().includes(searchValue.toLowerCase())

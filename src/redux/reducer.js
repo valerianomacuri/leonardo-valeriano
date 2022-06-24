@@ -29,6 +29,12 @@ export const reducer = (state, action) => {
     case types.FILTER:
       const { filter, searchValue } = action.payload
       if (filter === 'nombre') {
+        if (searchValue === '') {
+          return {
+            ...state,
+            filteredUsers: []
+          }
+        }
         const filteredUsers = state.users.filter((user) =>
           user.firstName.toLowerCase().includes(searchValue.toLowerCase())
         )
@@ -38,6 +44,12 @@ export const reducer = (state, action) => {
         }
       }
       if (filter === 'apellido') {
+        if (searchValue === '') {
+          return {
+            ...state,
+            filteredUsers: []
+          }
+        }
         const filteredUsers = state.users.filter((user) =>
           user.lastName.toLowerCase().includes(searchValue.toLowerCase())
         )

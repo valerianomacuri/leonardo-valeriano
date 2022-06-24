@@ -50,7 +50,6 @@ export const SecondChallengeRedux = () => {
   }, [orderBy])
   useEffect(() => {
     if (users.length === 0) return
-    if (searchValue === '') return
     dispatch({
       type: types.FILTER,
       payload: {
