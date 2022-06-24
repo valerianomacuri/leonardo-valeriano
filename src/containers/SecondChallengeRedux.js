@@ -13,21 +13,25 @@ import { BasicTable } from '../components/BasicTable'
 import { MySelect } from '../components/MySelect'
 import { USERS } from '../utils'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { useDispatch, useSelector } from 'react-redux'
+import { types } from '../redux/reducer'
 
-export const SecondChallenge = () => {
-  const [users, setUsers] = useState([])
-  const [filteredUsers, setFilteredUsers] = useState([])
+export const SecondChallengeRedux = () => {
+  const users = useSelector((state) => state.users)
+  const filteredUsers = useSelector((state) => state.filteredUsers)
   const [orderBy, setOrderBy] = useState('mayor')
   const [filter, setFilter] = useState('nombre')
   const [searchValue, setSearchValue] = useState('')
-
+  const dispatch = useDispatch()
   const onSearch = (e) => {
     setSearchValue(e.target.value)
   }
 
   const onDelete = (id) => () => {
-    const newUsers = users.filter((user) => user.id !== id)
-    setUsers(newUsers)
+    dispatch({
+      type: types.DELETE,
+      payload: id
+    })
   }
 
   const onChangeOrder = (e) => {
@@ -39,44 +43,27 @@ export const SecondChallenge = () => {
   }
   useEffect(() => {
     if (users.length === 0) return
-    if (searchValue === '') return
-    if (filter === 'nombre') {
-      const filteredUsers = users.filter((user) =>
-        user.firstName.toLowerCase().includes(searchValue.toLowerCase())
-      )
-      setFilteredUsers([...filteredUsers])
-    }
-    if (filter === 'apellido') {
-      const filteredUsers = users.filter((user) =>
-        user.lastName.toLowerCase().includes(searchValue.toLowerCase())
-      )
-      setFilteredUsers([...filteredUsers])
-    }
-  }, [searchValue, users, filter])
-
-  useEffect(() => {
-    if (users.length === 0) {
-      setUsers(USERS.sort((a, b) => b.age - a.age))
-    }
-  }, [])
-
+    dispatch({
+      type: types.ORDER_BY,
+      payload: orderBy
+    })
+  }, [orderBy])
   useEffect(() => {
     if (users.length === 0) return
-    let sortUsers = []
-    if (orderBy === 'mayor') {
-      sortUsers = users.sort((a, b) => b.age - a.age)
-      setUsers([...sortUsers])
-    }
-    if (orderBy === 'menor') {
-      sortUsers = users.sort((a, b) => a.age - b.age)
-      setUsers([...sortUsers])
-    }
-  }, [orderBy])
+    if (searchValue === '') return
+    dispatch({
+      type: types.FILTER,
+      payload: {
+        filter,
+        searchValue
+      }
+    })
+  }, [searchValue, filter, users])
 
   return (
     <Fragment>
       <Typography component='h2' variant='body1'>
-        SecondChallenge
+        SecondChallengeWithRedux
       </Typography>
       <div
         style={{

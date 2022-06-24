@@ -24,9 +24,9 @@ const FourthChallenge = () => {
   )
 }
 
-const AgeDisplay = memo(({ length }) => {
+export const AgeDisplay = memo(({ length, callback = (f) => f }) => {
   const myRef = useFlasher()
-
+  callback()
   return (
     <div ref={myRef}>
       <p>Age: {length}</p>
@@ -34,9 +34,9 @@ const AgeDisplay = memo(({ length }) => {
   )
 })
 
-const NameDisplay = memo(({ name }) => {
+export const NameDisplay = memo(({ name, callback = (f) => f }) => {
   const myRef = useFlasher()
-
+  callback()
   return (
     <div ref={myRef}>
       <p>Your name is: {name}</p>

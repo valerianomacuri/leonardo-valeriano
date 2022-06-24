@@ -43,8 +43,9 @@ export const USERS = [
   }
 ]
 
-export const getGifts = () => {
-  const gifts = 'bici coche pelota _playstation bici _coche peluche coche bici'
+export const getGifts = (
+  gifts = 'bici coche pelota _playstation bici _coche peluche coche bici'
+) => {
   const validGifts = gifts.split(' ').filter((item) => item[0] !== '_')
   var groupedGifts = {}
   for (let i = 0; i < validGifts.length; i++) {

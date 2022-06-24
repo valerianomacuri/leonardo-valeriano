@@ -1,10 +1,11 @@
 import { Typography } from '@mui/material'
-import React, { Fragment } from 'react'
+import React, { Fragment, useMemo } from 'react'
 import { getGifts } from '../utils'
 
 export const FirstChallenge = () => {
   const gifts = getGifts()
-
+  // memorizar el resultado de la función
+  // const gifts = useMemo(() => getGifts(), [])
   return (
     <Fragment>
       <Typography variant='body1' component={'h2'}>

@@ -1,23 +1,11 @@
-import Header from './components/Header'
-import { FirstChallenge } from './containers/FirstChallenge'
-import { Fragment } from 'react'
-import { SecondChallenge } from './containers/SecondChallenge'
-import FourthChallenge from './containers/FourthChallenge'
+import { AppRouter } from './components/AppRouter'
+import { AppProvider } from './redux/AppProvider'
 
 const App = () => {
   return (
-    <Fragment>
-      <Header />
-      <div
-        style={{
-          padding: 20
-        }}
-      >
-        <FirstChallenge />
-        <SecondChallenge />
-        <FourthChallenge />
-      </div>
-    </Fragment>
+    <AppProvider>
+      <AppRouter />
+    </AppProvider>
   )
 }
 
