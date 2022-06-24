@@ -1,22 +1,30 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import { useFlasher } from '../utils/hooks'
 
 const FourthChallenge = () => {
-  const [ age, setAge ] = useState(3)
-  const [ name, setName ] = useState('John Doe')
+  const [age, setAge] = useState(3)
+  const [name, setName] = useState('John Doe')
 
   return (
     <>
-      <input onChange={e => setName(e.target.value)} placeholder='Name' value={name} />
+      <input
+        onChange={(e) => setName(e.target.value)}
+        placeholder='Name'
+        value={name}
+      />
       <NameDisplay name={name} />
       <hr />
-      <input onChange={e => setAge(Number(e.target.value))} placeholder='Age' value={age} />
+      <input
+        onChange={(e) => setAge(Number(e.target.value))}
+        placeholder='Age'
+        value={age}
+      />
       <AgeDisplay length={age} />
     </>
   )
 }
 
-const AgeDisplay = ({ length }) => {
+const AgeDisplay = memo(({ length }) => {
   const myRef = useFlasher()
 
   return (
@@ -24,9 +32,9 @@ const AgeDisplay = ({ length }) => {
       <p>Age: {length}</p>
     </div>
   )
-}
+})
 
-const NameDisplay = ({ name }) =>  {
+const NameDisplay = memo(({ name }) => {
   const myRef = useFlasher()
 
   return (
@@ -34,6 +42,6 @@ const NameDisplay = ({ name }) =>  {
       <p>Your name is: {name}</p>
     </div>
   )
-}
+})
 
 export default FourthChallenge
