@@ -1,9 +1,18 @@
-import { TableCell, TableRow } from '@mui/material'
+import {
+  TableCell,
+  TableRow,
+  Typography,
+  TextField,
+  MenuItem,
+  IconButton
+} from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import { useEffect, useState } from 'react'
 import { Fragment } from 'react'
 import { BasicTable } from '../components/BasicTable'
+import { MySelect } from '../components/MySelect'
 import { USERS } from '../utils'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 export const SecondChallenge = () => {
   const [users, setUsers] = useState([])
@@ -30,6 +39,7 @@ export const SecondChallenge = () => {
   }
   useEffect(() => {
     if (users.length === 0) return
+    if (searchValue === '') return
     if (filter === 'nombre') {
       const filteredUsers = users.filter((user) =>
         user.firstName.toLowerCase().includes(searchValue.toLowerCase())
@@ -42,7 +52,7 @@ export const SecondChallenge = () => {
       )
       setFilteredUsers([...filteredUsers])
     }
-  }, [searchValue])
+  }, [searchValue, users])
 
   useEffect(() => {
     if (users.length === 0) {
@@ -64,21 +74,40 @@ export const SecondChallenge = () => {
 
   return (
     <Fragment>
-      <div>SecondChanllenge</div>
-      <div>
-        <input value={searchValue} onChange={onSearch} />
-        <span>Filtrar por</span>
-        <select value={filter} onChange={onChangeFilter}>
-          <option value='nombre'>Nombre</option>
-          <option value='apellido'>Apellido</option>
-        </select>
-      </div>
-      <div>
-        <span>Ordenar por edad</span>
-        <select value={orderBy} onChange={onChangeOrder}>
-          <option value='mayor'>Mayor</option>
-          <option value='menor'>Menor</option>
-        </select>
+      <Typography component='h2' variant='body1'>
+        SecondChallenge
+      </Typography>
+      <div
+        style={{
+          paddingTop: 10,
+          paddingBottom: 10,
+          display: 'flex',
+          gap: 10
+        }}
+      >
+        <TextField
+          id='outlined-basic'
+          label='Buscar'
+          variant='outlined'
+          value={searchValue}
+          onChange={onSearch}
+        />
+        <MySelect
+          value={filter}
+          onChange={onChangeFilter}
+          helperText={'Filtrar por'}
+        >
+          <MenuItem value='nombre'>Nombre</MenuItem>
+          <MenuItem value='apellido'>Apellido</MenuItem>
+        </MySelect>
+        <MySelect
+          value={orderBy}
+          onChange={onChangeOrder}
+          helperText={'Ordenar por edad'}
+        >
+          <MenuItem value='mayor'>Mayor</MenuItem>
+          <MenuItem value='menor'>Menor</MenuItem>
+        </MySelect>
       </div>
       <BasicTable>
         {users.length !== 0 &&
@@ -95,7 +124,9 @@ export const SecondChallenge = () => {
               <TableCell align='right'>{user.lastName}</TableCell>
               <TableCell align='right'>{user.age}</TableCell>
               <TableCell align='right'>
-                <button onClick={onDelete(user.id)}>Borrar</button>
+                <IconButton onClick={onDelete(user.id)}>
+                  <DeleteIcon />
+                </IconButton>
               </TableCell>
             </TableRow>
           ))}
@@ -112,7 +143,9 @@ export const SecondChallenge = () => {
               <TableCell align='right'>{user.lastName}</TableCell>
               <TableCell align='right'>{user.age}</TableCell>
               <TableCell align='right'>
-                <button onClick={onDelete(user.id)}>Borrar</button>
+                <IconButton onClick={onDelete(user.id)}>
+                  <DeleteIcon />
+                </IconButton>
               </TableCell>
             </TableRow>
           ))}

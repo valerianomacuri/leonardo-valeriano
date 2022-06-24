@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material'
 import React, { Fragment } from 'react'
 import { getGifts } from '../utils'
 
@@ -6,8 +7,10 @@ export const FirstChallenge = () => {
 
   return (
     <Fragment>
-      <div>FirstChallenge</div>
-      {JSON.stringify(gifts, null, '\t')}
+      <Typography variant='body1' component={'h2'}>
+        FirstChallenge
+      </Typography>
+      <code>{JSON.stringify(gifts, null, '\t')}</code>
     </Fragment>
   )
 }
